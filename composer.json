@@ -1,0 +1,20 @@
+{
+  "name": "webcito/bs-notify",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "thomas",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "components/jquery": "3.6.0",
+    "twbs/bootstrap": "v5.3.3"
+  }
+  ,
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  }
+}
