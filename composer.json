@@ -11,7 +11,8 @@
   ],
   "require": {
     "components/jquery": "3.6.0",
-    "twbs/bootstrap": "v5.3.3"
+    "twbs/bootstrap": "v5.3.3",
+    "twbs/bootstrap-icons": "v1.11.3"
   }
   ,
   "require-dev": {

@@ -1,24 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>$.bsToast demo</title>
+    <link href="vendor/twbs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Hello, world!</h1>
+
 <script src="vendor/components/jquery/jquery.min.js"></script>
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="dist/bs-notify.js"></script>
+<script src="dist/bs-toast.js"></script>
 <script>
     $(document).ready(function(){
-        $.bsNotify({
-            type:'dark',
-            title:'title',
-            placement:'mc',
-            autohide: false
+        const placements = ['ts', 'tc', 'te', 'me', 'be', 'bc','bs', 'ms'];
+        let start = 0;
+        placements.forEach(pm =>{
+            $.bsToast({
+                start:start,
+                delay:3000,
+                type:'light',
+                title:'title',
+                placement:pm,
+                autoHide: true
+            })
+            start += 200
         })
+
+        $.bsToast({
+            start:start,
+            delay:3000,
+            type:'primary',
+            title:'title',
+            message: ['<h3>$.bsToast</h3><h4>make toast easy</h4>'].join('<br>'),
+            placement:'mc',
+            autoHide: false
+        })
+
     });
 </script>
 </body>
