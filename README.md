@@ -9,7 +9,7 @@ You can include `bs-toast.js` in your project using Composer or by manually down
 Use the following command to install via composer:
 
 ```shell
-composer require bs-toast
+composer require bs-toast:dev-main
 ```
 
 ### Manual Installation
@@ -18,7 +18,7 @@ To manually install the script, download `bs-toast.js` and include it in your pr
 
 ## 2. Options
 
-`bsToast.js` file has a number of options you can customize. The options for the toast feature include:
+`bsToast` file has a number of options you can customize. The options for the toast feature include:
 
 - `type`: The type of the toast. It could be one of 'info', 'warning', 'success', 'danger'. The default value is 'info'.
 - `title`: The title of the toast. By default, it's null.
@@ -41,7 +41,7 @@ The script triggers various events that allow your application to react to the d
 
 ## 4. Example
 
-Here is an example of how to use the `bsToast.js`:
+Here is an example of how to use the `bsToast`.:
 
 ```javascript
 $(document).ready(function() {
