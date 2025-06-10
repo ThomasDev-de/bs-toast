@@ -38,14 +38,29 @@ The script triggers various events that allow your application to react to the d
 - `onShown`: Firing after the toast has been shown.
 - `onHide`: This event is fired when the toast starts hiding.
 - `onHidden`: Firing after the toast has been hidden.
+- 
+### 4. Methods
 
-## 4. Example
+```javascript
+const myToast = $.bsToast({
+    ...
+}); // The plugin returns the toast
+
+myToast.isExists() // bool
+// The bootstrap methods
+myToast.hide()
+myToast.isShown() // bool
+
+const allToast = $.bsToast.getToasts();
+```
+
+## 5. Example
 
 Here is an example of how to use the `bsToast`.:
 
 ```javascript
 $(document).ready(function() {
-    $.bsToast({
+    const myToast = $.bsToast({
         type: 'info',
         title: 'Hello, User',
         message: 'This toast is a toast example.',

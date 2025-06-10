@@ -17,7 +17,7 @@
         const placements = ['ts', 'tc', 'te', 'me', 'be', 'bc','bs', 'ms'];
         let start = 0;
         placements.forEach(pm =>{
-            $.bsToast({
+           const $toast = $.bsToast({
                 start:start,
                 delay:3000,
                 type:'light',
@@ -26,6 +26,9 @@
                 autoHide: true
             })
             start += 200
+            console.log($toast)
+            const allOpenToast = $.bsToast.getToasts();
+           console.log(allOpenToast)
         })
 
         $.bsToast({

@@ -1,6 +1,8 @@
 // noinspection JSUnresolvedReference
 
 (function ($) {
+    const activeToasts = []; // Array to track active toasts
+
     $.bsToast = function (options) {
         const settings = $.extend(
             true,
@@ -25,14 +27,7 @@
         const toastContainerId =
             "toast_container_583555b1-3319-4b81-a812-2819f8dfae9c_" +
             settings.placement;
-        let backdrop;
 
-        /**
-         * Returns the icon class based on the given type.
-         *
-         * @param {string} type - The type of the icon.
-         * @return {string} - The icon class corresponding to the given type.
-         */
         function getIconByType(type) {
             switch (type) {
                 case "info":
@@ -53,11 +48,6 @@
             return selector.length ? selector : null;
         }
 
-        /**
-         * Retrieves the toast container element.
-         *
-         * @returns {$} The toast container element.
-         */
         function getContainer() {
             if (settings.staticBackdrop) {
                 if (null === getBackdrop()) {
@@ -67,7 +57,7 @@
                         css: {
                             display: "none",
                             backgroundColor: "rgba(0,0,0,.5)",
-                            zIndex: 1055 // one more than modal backdrops
+                            zIndex: 1055,
                         },
                     }).appendTo("body");
                 }
@@ -108,17 +98,10 @@
             container = $("<div>", {
                 id: toastContainerId,
                 class: `toast-container position-fixed ${placementClass} p-3`,
-            }).appendTo(backdrop ?? "body");
+            }).appendTo(getBackdrop() || "body");
             return container;
         }
 
-        /**
-         * Retrieves the color based on the given type.
-         *
-         * @param {string} type - The type of color to retrieve (e.g. 'info', 'warning', 'success', 'danger', 'light', 'dark', 'primary', 'secondary').
-         * @return {string} - The color corresponding to the given type.
-         * If the type is not recognized, it returns the opposite color of the current theme.
-         */
         function getColorByType(type) {
             switch (type) {
                 case "info":
@@ -136,11 +119,6 @@
             }
         }
 
-        /**
-         * Build and display a toast notification with the given settings.
-         *
-         * @return {void}
-         */
         function build() {
             let header = "";
             const config = {
@@ -173,52 +151,46 @@
             const toastBody = `
             <div class="toast-body">
                ${settings.message}
-            </div>  `;
+            </div>`;
             $(toastBody).appendTo(toast);
 
+            // Add toast to the activeToasts array
+            activeToasts.push(toast);
+
+            toast.isExists = function () {
+                return activeToasts.includes(toast);
+            };
+
+            // Attach events
             toast
-                .on("hide.bs.toast", settings.onHide)
-                .on("hidden.bs.toast", settings.onHidden)
+                .on("hide.bs.toast", () => {
+                    if (settings.onHide) settings.onHide();
+                })
+                .on("hidden.bs.toast", () => {
+                    // Remove toast from the activeToasts array
+                    const index = activeToasts.indexOf(toast);
+                    if (index !== -1) {
+                        activeToasts.splice(index, 1);
+                    }
+                    if (settings.onHidden) settings.onHidden();
+                })
                 .on("show.bs.toast", settings.onShow)
                 .on("shown.bs.toast", settings.onShown);
 
-            setTimeout(function () {
+            // Show the toast
+            setTimeout(() => {
                 toast.toast("show");
             }, settings.start);
+
+            return toast; // Return the toast reference
         }
 
-        /**
-         * Initializes the application.
-         * This method builds the application and sets event listeners for hiding toast messages.
-         *
-         * @returns {void}
-         */
-        function init() {
-            build();
-            getContainer()
-                .on("show.bs.toast", ".toast", function (e) {
-                    const bd = getBackdrop();
-                    if (bd) {
-                        bd.show();
-                    }
-                })
-                .on("hide.bs.toast", ".toast", function (e) {
-                    const bd = getBackdrop();
-                    if (bd) {
-                        bd.hide();
-                    }
-                })
-                .on("hidden.bs.toast", ".toast", function (e) {
-                    const el = $(e.currentTarget);
-                    const wrap = el.closest(".toast-container");
-                    el.remove();
-                    const countToasts = wrap.find(".toast").length;
-                    if (!countToasts) {
-                        wrap.remove();
-                    }
-                });
-        }
-
-        init();
+        return build(); // Return the built toast
     };
+
+    // Public method to get all active toasts
+    $.bsToast.getToasts = function () {
+        return activeToasts;
+    };
+
 })(jQuery);
