@@ -137,6 +137,8 @@
                 "data-bs-autohide": settings.autoHide,
             }).appendTo(getContainer());
 
+            let closeButtonSet = false;
+
             if (settings.title !== null) {
                 const icon = getIconByType(settings.type);
                 header = `
@@ -146,12 +148,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>`;
                 $(header).appendTo(toast);
+                closeButtonSet = true;
             }
 
-            const toastBody = `
+            let toastBody = `
             <div class="toast-body">
                ${settings.message}
             </div>`;
+
+            if(!closeButtonSet) {
+                toastBody = `<div class="d-flex align-items-start flex-nowrap">${toastBody}<button type="button" class="btn-close ms-auto me-2 my-2" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
+            }
+
+
             $(toastBody).appendTo(toast);
 
             // Add toast to the activeToasts array
