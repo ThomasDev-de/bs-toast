@@ -193,4 +193,14 @@
         return activeToasts;
     };
 
+    // Public method to close all active toasts
+    $.bsToast.closeAll = function () {
+        // Create a copy of the activeToasts array to iterate safely
+        const toastsToClose = [...activeToasts];
+
+        toastsToClose.forEach(function (toast) {
+            toast.toast('hide'); // Trigger the hide event on each toast
+        });
+    };
+
 })(jQuery);
