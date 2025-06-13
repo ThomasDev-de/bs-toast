@@ -52,6 +52,8 @@ myToast.hide()
 myToast.isShown() // bool
 
 const allToast = $.bsToast.getToasts();
+// Close all opened toasts
+$.bsToast.closeAll();
 ```
 
 ## 5. Example
