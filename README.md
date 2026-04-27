@@ -27,8 +27,8 @@ To manually install the script, download `bs-toast.js` and include it in your pr
 - `delay`: Delay before the toast disappears, 5000ms as default.
 - `autoHide`: A boolean indicating whether to hide the toast automatically. It's by default set to true.
 - `animation`: A boolean indicating whether the toast should be animated or not, also set to true by default.
-- `placement`: The placement of the toast. The possible values are 'ts', 'tc', 'te', 'ms', 'mc', 'me', 'bs', 'bc', 'be'.
-  By default, it's 'mc'.
+- `placement`: The placement of the toast. The possible values are 'top-start' or 'ts', 'top-center' or 'tc', 'top-end' or 'te', 'middle-start' or 'ms', 'middle-center' or 'mc', 'middle-end' or 'me', 'bottom-start' or 'bs', 'bottom-center' or 'bc', 'bottom-end' or 'be'.
+  By default, it's 'bottom-end'.
 
 ## 3. Events
 

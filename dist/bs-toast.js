@@ -14,12 +14,16 @@
                 delay: 5000,
                 autoHide: true,
                 animation: true,
-                placement: "mc",
+                placement: "bottom-end",
                 staticBackdrop: false,
-                onShow() {},
-                onShown() {},
-                onHide() {},
-                onHidden() {},
+                onShow() {
+                },
+                onShown() {
+                },
+                onHide() {
+                },
+                onHidden() {
+                },
             },
             options || {},
         );
@@ -67,30 +71,39 @@
             if (container.length) return container;
             let placementClass = "";
             switch (settings.placement) {
+                case "top-start":
                 case "ts":
                     placementClass = "top-0 start-0";
                     break;
+                case 'top-center':
                 case "tc":
                     placementClass = "top-0 start-50 translate-middle-x";
                     break;
+                case 'top-end':
                 case "te":
                     placementClass = "top-0 end-0";
                     break;
+                case 'middle-start':
                 case "ms":
                     placementClass = "top-50 start-0 translate-middle-y";
                     break;
+                case 'middle-center':
                 case "mc":
                     placementClass = "top-50 start-50 translate-middle";
                     break;
+                case 'middle-end':
                 case "me":
                     placementClass = "top-50 end-0 translate-middle-y";
                     break;
+                case 'bottom-start':
                 case "bs":
                     placementClass = "bottom-0 start-0";
                     break;
+                case 'bottom-center':
                 case "bc":
                     placementClass = "bottom-0 start-50 translate-middle-x";
                     break;
+                case 'bottom-end':
                 case "be":
                     placementClass = "bottom-0 end-0";
                     break;
@@ -156,7 +169,7 @@
                ${settings.message}
             </div>`;
 
-            if(!closeButtonSet) {
+            if (!closeButtonSet) {
                 toastBody = `<div class="d-flex align-items-start flex-nowrap">${toastBody}<button type="button" class="btn-close ms-auto me-2 my-2" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
             }
 
