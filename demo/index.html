@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>bsToast Demo</title>
+    <link rel="stylesheet" href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendor/twbs/bootstrap-icons/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background: #f6f8fb;
+        }
+
+        .demo-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .log-list {
+            height: 240px;
+            overflow: auto;
+            background: #111827;
+            color: #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.84rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-4 py-lg-5">
+    <div class="demo-shell">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+            <div>
+                <h1 class="h3 mb-1">bsToast Demo</h1>
+                <p class="text-secondary mb-0">Interactive test page for your jQuery/Bootstrap toast plugin.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button id="btnShowToast" type="button" class="btn btn-primary">
+                    <i class="bi bi-bell me-1"></i>
+                    Show toast
+                </button>
+                <button id="btnCloseAll" type="button" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-1"></i>
+                    Close all
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12 col-lg-7">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h5 mb-3">Configuration</h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="type" class="form-label">Type</label>
+                                <select id="type" class="form-select">
+                                    <option value="info" selected>info</option>
+                                    <option value="success">success</option>
+                                    <option value="warning">warning</option>
+                                    <option value="danger">danger</option>
+                                    <option value="primary">primary</option>
+                                    <option value="secondary">secondary</option>
+                                    <option value="light">light</option>
+                                    <option value="dark">dark</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="placement" class="form-label">Placement</label>
+                                <select id="placement" class="form-select">
+                                    <option value="top-start">top-start</option>
+                                    <option value="top-center">top-center</option>
+                                    <option value="top-end">top-end</option>
+                                    <option value="middle-start">middle-start</option>
+                                    <option value="middle-center">middle-center</option>
+                                    <option value="middle-end">middle-end</option>
+                                    <option value="bottom-start">bottom-start</option>
+                                    <option value="bottom-center">bottom-center</option>
+                                    <option value="bottom-end" selected>bottom-end</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="title" class="form-label">Title (optional)</label>
+                                <input id="title" type="text" class="form-control" value="Hinweis">
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label">Message (HTML allowed)</label>
+                                <textarea id="message" rows="3" class="form-control">Your data was saved successfully.</textarea>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="start" class="form-label">Start Delay (ms)</label>
+                                <input id="start" type="number" min="0" step="100" class="form-control" value="0">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="delay" class="form-label">Hide Delay (ms)</label>
+                                <input id="delay" type="number" min="0" step="100" class="form-control" value="5000">
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="autoHide" checked>
+                                    <label class="form-check-label" for="autoHide">Auto Hide</label>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="animation" checked>
+                                    <label class="form-check-label" for="animation">Animation</label>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="backdrop">
+                                    <label class="form-check-label" for="backdrop">Static backdrop</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5">
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <h2 class="h5 mb-3">Quick tests</h2>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-outline-success btn-sm preset" data-type="success" data-title="Erfolg" data-message="Aktion erfolgreich abgeschlossen.">
+                                Success
+                            </button>
+                            <button class="btn btn-outline-warning btn-sm preset" data-type="warning" data-title="Warning" data-message="Please review your input.">
+                                Warning
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm preset" data-type="danger" data-title="Error" data-message="A problem occurred.">
+                                Danger
+                            </button>
+                            <button class="btn btn-outline-info btn-sm preset" data-type="info" data-title="Info" data-message="A new update is available.">
+                                Info
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h2 class="h5 mb-0">Event Log</h2>
+                            <button id="clearLog" type="button" class="btn btn-sm btn-outline-secondary">Clear</button>
+                        </div>
+                        <div id="log" class="log-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../vendor/components/jquery/jquery.min.js"></script>
+<script src="../vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../dist/bs-toast.js"></script>
+<script>
+    (function () {
+        const $log = $("#log");
+
+        function appendLog(text) {
+            const stamp = new Date().toLocaleTimeString("en-US");
+            $log.prepend(`<div>[${stamp}] ${text}</div>`);
+        }
+
+        function getOptions() {
+            const titleRaw = $("#title").val().trim();
+            return {
+                type: $("#type").val(),
+                title: titleRaw === "" ? null : titleRaw,
+                message: $("#message").val(),
+                placement: $("#placement").val(),
+                start: Number($("#start").val() || 0),
+                delay: Number($("#delay").val() || 5000),
+                autoHide: $("#autoHide").is(":checked"),
+                animation: $("#animation").is(":checked"),
+                staticBackdrop: $("#backdrop").is(":checked"),
+                onShow() {
+                    appendLog("onShow");
+                },
+                onShown() {
+                    appendLog("onShown");
+                },
+                onHide() {
+                    appendLog("onHide");
+                },
+                onHidden() {
+                    appendLog("onHidden");
+                }
+            };
+        }
+
+        function showToast() {
+            const options = getOptions();
+            appendLog(`Toast created (type=${options.type}, placement=${options.placement})`);
+            $.bsToast(options);
+        }
+
+        $("#btnShowToast").on("click", showToast);
+
+        $("#btnCloseAll").on("click", function () {
+            $.bsToast.closeAll();
+            appendLog("closeAll() executed");
+        });
+
+        $("#clearLog").on("click", function () {
+            $log.empty();
+        });
+
+        $(".preset").on("click", function () {
+            const $btn = $(this);
+            $("#type").val($btn.data("type"));
+            $("#title").val($btn.data("title"));
+            $("#message").val($btn.data("message"));
+            showToast();
+        });
+
+        appendLog("Demo ready");
+    })();
+</script>
+</body>
+</html>
